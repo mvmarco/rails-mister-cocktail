@@ -5,13 +5,13 @@ class DosesController < ApplicationController
     @cocktail = Cocktail.find(params[:cocktail_id])
   end
 
-def create
+  def create
        # strong_params = params.require(:name_of_model).permit(:attributes)
     @dose = Dose.new(strong_params)
     @dose.cocktail_id = params[:cocktail_id]
     if @dose.save
       # Redirect to the show page
-      redirect_to @dose.cocktail
+      redirect_to cocktail_path() #@dose.cocktail
     else
       render :new
     end
@@ -26,6 +26,5 @@ def create
     @cocktails.destroy
       redirect_to @dose.cocktail
   end
-  
-  
+
 end
