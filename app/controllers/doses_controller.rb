@@ -11,20 +11,21 @@ class DosesController < ApplicationController
     @dose.cocktail_id = params[:cocktail_id]
     if @dose.save
       # Redirect to the show page
-      redirect_to cocktail_path() #@dose.cocktail
+      redirect_to cocktail_path(@dose.cocktail_id) #@dose.cocktail
     else
-      render :new
+      @cocktail = @dose.cocktail
+      render "cocktails/show"
     end
   end
 
   def strong_params
-    return params.require(:doses).permit(:description, :ingredient_id)
+    return params.require(:dose).permit(:description, :ingredient_id)
   end
 
   def destroy
     @dose = Dose.find(params[:id])
-    @cocktails.destroy
-      redirect_to @dose.cocktail
+    @dose.destroy
+      redirect_to cocktail_path(@dose.cocktail_id)
   end
 
 end

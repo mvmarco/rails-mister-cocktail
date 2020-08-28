@@ -1,2 +1,32 @@
-<h1>Cocktails#show</h1>
-<p>Find me in app/views/cocktails/show.html.erb</p>
+<div class="container p-3 my-3 border">
+  <h1>Here is your cocktail:</h1>
+
+  <br>
+  
+  <h2>
+    <%= @cocktail.name %>
+  </h2>
+
+  <p>Add the dosage in "ml" in the description below and the extra ingredient you want:</p>
+
+  <br>
+
+  <%= simple_form_for [@cocktail, @dose]  do |form| %>
+    <%= form.input :description%>
+    <%= form.association :ingredient%>
+    <%= form.submit %>
+  <% end %>
+
+  <ul class="mt-3 mb-5 col-122">
+    <% @cocktail.doses.each do |dose| %>
+      <li><%= dose.description %> - <%= dose.ingredient.name %>
+      <%= link_to "-Delete-", cocktail_dose_path(@cocktail.id, dose.id), method: :delete, class: "card-remove-link"%>
+      </li>
+    <% end %>
+  </ul>
+
+  <br>
+
+  <%=link_to "Go to Homepage", cocktails_path %>
+
+</div>

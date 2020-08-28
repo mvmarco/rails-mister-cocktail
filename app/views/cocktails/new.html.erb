@@ -1,6 +1,16 @@
-<h1>Cocktails#new</h1>
+<div class="container p-3 my-3 border">
 
-<%= simple_form_for @cocktail do |form| %>
-  <%= form.input :name %>
-  <%= form.submit %>
-<% end %>
+<h1>Create a new cocktail:</h1>
+
+  <br>
+
+  <%= simple_form_for @cocktail do |form| %>
+    <%= form.input :name %>
+    <%= form.submit %>
+  <% end %>
+
+  <br>
+
+  <%=link_to "Go to Homepage", cocktails_path %>
+
+</div>

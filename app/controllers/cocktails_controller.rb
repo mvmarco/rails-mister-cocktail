@@ -1,11 +1,12 @@
 class CocktailsController < ApplicationController
 
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.all.order(created_at: :desc)
   end
 
   def show
     @cocktail = Cocktail.find(params[:id])
+    @dose = Dose.new
   end
 
   def new
@@ -17,7 +18,7 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.new(strong_params)
     if @cocktail.save
       # Redirect to the show page
-      redirect_to cocktails_path
+      redirect_to cocktails_path(@cocktail.id)
     else
       render :new
     end
@@ -28,9 +29,9 @@ class CocktailsController < ApplicationController
   end
 
   def destroy
-        @cocktails = Coctails.find(params[:id])
+        @cocktails = Cocktail.find(params[:id])
         @cocktails.destroy
            redirect_to cocktails_path
-    end
+  end
   
 end
